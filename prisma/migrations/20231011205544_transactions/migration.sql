@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Transaction" ADD COLUMN     "comment" TEXT,
+ADD COLUMN     "date" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
