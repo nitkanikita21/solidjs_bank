@@ -13,7 +13,7 @@ export const transactionWithSafeCardsValidator = Prisma.validator<Prisma.Transac
         summ: true,
         type: true,
         comment: true,
-        date: true
+        date: true,
     },
 });
 

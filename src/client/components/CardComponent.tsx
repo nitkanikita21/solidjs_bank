@@ -21,16 +21,16 @@ export const balanceFormat = new Intl.NumberFormat('en-US', {
 });
 
 export default function (props: {
-    data: SafeCardWithOwner | FullCardWithUserData
-    type: 'own' | 'other'
-    class?: string
+    data: SafeCardWithOwner | FullCardWithUserData;
+    type: 'own' | 'other';
+    class?: string;
 }) {
     const separatedNumber = createMemo(() =>
         props.data!!.numericalId.replace(/(\d{4})(\d{4})(\d{4})/gm, '$1 $2 $3 ')
     );
 
     return (
-        <div class={twMerge("card image-full aspect-[3.5/2] h-48 w-min shadow-xl", props.class)}>
+        <div class={twMerge('card image-full aspect-[3.5/2] h-48 w-min shadow-xl', props.class)}>
             <Show when={props.data!!.image}>
                 <figure>
                     <img

@@ -5,7 +5,12 @@ datasource db {
 }
 
 generator client {
-    provider        = "prisma-client-js"
+    provider = "prisma-client-js"
+}
+
+generator zod {
+    provider     = "zod-prisma"
+    useDecimalJs = true
 }
 
 model Account {
@@ -77,11 +82,12 @@ model Card {
 }
 
 model Transaction {
-    id      String          @id @default(cuid())
-    type    TransactionType
-    summ    Int
+    id   String          @id @default(cuid())
+    type TransactionType
+    summ Int
+
     reason  String
-    date    DateTime        @default(now()) @db.Timestamp()
+    date    DateTime @default(now()) @db.Timestamp()
     comment String?
 
     fromCardId String

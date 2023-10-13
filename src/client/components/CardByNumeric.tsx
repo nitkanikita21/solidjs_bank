@@ -9,7 +9,7 @@ import { SafeCardWithOwner } from '~/routes/api/card/[id]';
 export default function (props: {
     cardNumber: Accessor<string | null>;
     cardSetter: Setter<SafeCardWithOwner | undefined | null>;
-    class?: string
+    class?: string;
 }) {
     const [toCardData] = createResource(props.cardNumber, fetchCardByNumber);
     createEffect(() => {

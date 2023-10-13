@@ -10,14 +10,11 @@ export const fetchTransactionsBySession = async (cookies: string) => {
         })
     ).data as TransactionWithSafeCards[]; */
 
-    const data = await fetch(
-        `/api/user/transactions`,
-        {
-            method: 'GET',
-            headers: {
-                Cookie: cookies,
-            }
-        }
-    )
-    return await data.json() as TransactionWithSafeCards[]
+    const data = await fetch(`/api/user/transactions`, {
+        method: 'GET',
+        headers: {
+            Cookie: cookies,
+        },
+    });
+    return (await data.json()) as TransactionWithSafeCards[];
 };

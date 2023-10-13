@@ -26,6 +26,7 @@ import { getSession } from '@solid-mediakit/auth';
 import { getUserCards } from '~/routes/api/user/cards';
 import { authOptions } from '~/server/auth';
 import { TransactionDataPayload } from '~/routes/api/transaction/new/transfer';
+import { TransactionModel } from 'prisma/zod';
 
 /* export function routeData() {
     return createServerData$(async (_, { request }) => {
@@ -85,15 +86,15 @@ export default function () {
         axios
             .post(
                 '/api/transaction/new/transfer',
-                {
+                TransactionModel.parse({
                     reason: `Переказ коштів на карту ${targetCard()!!.numericalId
                         } користувачем ${session()?.user!!.name} з карти ${card()!!.numericalId}`,
                     summ: summ(),
                     fromCardId: cardId(),
                     toCardId: targetCard()?.id,
                     type: 'TRANSFER',
-                    comment: comment()
-                } as TransactionDataPayload,
+                    comment: comment(),
+                } as TransactionDataPayload),
                 { headers: { cookies: cookies() } }
             )
             .catch((e) => console.log(e))
@@ -120,7 +121,7 @@ export default function () {
                         </button>
                     </div>
                     <div class="divider"></div>
-                    <div class="flex flex-col gap-3 items-center">
+                    <div class="flex flex-col items-center gap-3">
                         <div>
                             <Show when={errorMsg()}>
                                 <div class="flex flex-row items-center gap-2 font-bold text-error">
@@ -182,13 +183,11 @@ export default function () {
                             />
                         </div>
                         <textarea
-                            class="textarea textarea-bordered w-96" placeholder="Коментар"
-                            onInput={(e) =>
-                                setComment(e.target.value)
-                            }
-                            value={comment() ?? ""}
-                        >
-                        </textarea>
+                            class="textarea textarea-bordered w-96"
+                            placeholder="Коментар"
+                            onInput={(e) => setComment(e.target.value)}
+                            value={comment() ?? ''}
+                        ></textarea>
                     </div>
                     <div class="my-5 grid grid-flow-col grid-cols-2 items-center gap-5 px-32">
                         <div class="flex flex-col items-start">

@@ -31,7 +31,7 @@ export function routeData() {
 export default function () {
     const session = createSession();
     const cookies = useRouteData<typeof routeData>();
-    const [transactions] = createResource(cookies, fetchTransactionsBySession)
+    const [transactions] = createResource(cookies, fetchTransactionsBySession);
 
     console.log('transactions', transactions());
 
@@ -89,12 +89,10 @@ function TransactionTableRow(props: {
         <>
             <tr>
                 <td>
-                    <div class='flex justify-center'>
+                    <div class="flex justify-center">
                         <Switch>
                             <Match when={transaction!!.type == 'TRANSFER'}>
-                                <FaSolidMoneyBillTransfer
-                                    size={32}
-                                />
+                                <FaSolidMoneyBillTransfer size={32} />
                             </Match>
                             <Match when={transaction!!.type == 'SYSTEM'}>
                                 <AiFillBank size={32} />
@@ -103,9 +101,14 @@ function TransactionTableRow(props: {
                     </div>
                 </td>
                 <td>
-                    <div class='flex justify-center'>
+                    <div class="flex justify-center">
                         <Switch>
-                            <Match when={transaction!!.fromCard.owner.id == transaction!!.toCard?.owner.id}>
+                            <Match
+                                when={
+                                    transaction!!.fromCard.owner.id ==
+                                    transaction!!.toCard?.owner.id
+                                }
+                            >
                                 <div class="font-bold text-blue-500">
                                     {balanceFormat.format(transaction!!.summ)}
                                 </div>
@@ -135,10 +138,12 @@ function TransactionTableRow(props: {
                     <div class="text-sm opacity-50">{transaction!!.reason}</div>
                 </td>
                 <td>
-                    <div class="text-sm opacity-50">{new Date(transaction!!.date).toLocaleString()}</div>
+                    <div class="text-sm opacity-50">
+                        {new Date(transaction!!.date).toLocaleString()}
+                    </div>
                 </td>
                 <td>
-                    <div class="text-sm opacity-50">{transaction!!.comment ?? "Відсутній"}</div>
+                    <div class="text-sm opacity-50">{transaction!!.comment ?? 'Відсутній'}</div>
                 </td>
             </tr>
         </>
